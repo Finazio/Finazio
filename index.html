@@ -2,728 +2,917 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Finazio — Financial Intelligence</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finazio — Financial Strategy & Consulting</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0c0e14;
-      --surface: #12151f;
-      --border: rgba(255,255,255,0.07);
-      --gold: #c8a96e;
-      --gold-light: #e8cc9a;
-      --text: #e8e6e0;
-      --muted: #7a7a85;
+      --ink: #0d0e0f;
+      --paper: #f5f2ec;
+      --cream: #ede9df;
+      --gold: #b8924a;
+      --gold-light: #d4aa6a;
+      --rule: #c8c0b0;
+      --muted: #7a7468;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --mono: 'DM Mono', monospace;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      min-height: 100vh;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 18px;
+      line-height: 1.7;
       overflow-x: hidden;
     }
 
-    /* Ambient background */
+    /* ── NOISE TEXTURE OVERLAY ── */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
-      background:
-        radial-gradient(ellipse 60% 50% at 70% 20%, rgba(200,169,110,0.07) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(80,100,160,0.1) 0%, transparent 50%);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
       pointer-events: none;
-      z-index: 0;
+      z-index: 9999;
+      opacity: 0.6;
     }
 
-    /* Fine grain texture */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.4;
-    }
-
-    /* NAV */
-    nav {
+    /* ── HEADER ── */
+    header {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.8rem 4rem;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.4s, background 0.4s;
-    }
-    nav.scrolled {
-      background: rgba(12,14,20,0.85);
-      backdrop-filter: blur(16px);
-      border-color: var(--border);
+      padding: 1.4rem 4rem;
+      background: rgba(245,242,236,0.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
     }
 
     .logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.65rem;
-      font-weight: 400;
-      letter-spacing: 0.04em;
-      color: var(--text);
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink);
       text-decoration: none;
     }
+
     .logo span { color: var(--gold); }
 
-    .nav-links {
+    nav {
       display: flex;
       gap: 2.5rem;
-      list-style: none;
+      align-items: center;
     }
-    .nav-links a {
-      font-size: 0.8rem;
-      letter-spacing: 0.12em;
+
+    nav a {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
       text-decoration: none;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--text); }
+
+    nav a:hover { color: var(--gold); }
 
     .nav-cta {
-      font-size: 0.78rem;
-      letter-spacing: 0.1em;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--gold);
-      border: 1px solid rgba(200,169,110,0.35);
-      padding: 0.6rem 1.4rem;
+      color: var(--paper) !important;
+      background: var(--ink);
+      padding: 0.55rem 1.3rem;
       text-decoration: none;
       transition: background 0.2s, color 0.2s;
     }
-    .nav-cta:hover {
-      background: var(--gold);
-      color: var(--bg);
-    }
 
-    /* HERO */
+    .nav-cta:hover { background: var(--gold) !important; color: var(--paper) !important; }
+
+    /* ── HERO ── */
     .hero {
-      position: relative;
-      z-index: 1;
       min-height: 100vh;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding: 0 4rem;
-      gap: 4rem;
+      padding-top: 5rem;
     }
 
     .hero-left {
-      padding-top: 6rem;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeUp 1s 0.3s forwards;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 6rem 4rem;
+      position: relative;
     }
 
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.72rem;
-      letter-spacing: 0.15em;
+    .hero-left::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 10%; bottom: 10%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--rule) 30%, var(--rule) 70%, transparent);
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 2rem;
-    }
-    .tag::before {
-      content: '';
-      display: block;
-      width: 2rem;
-      height: 1px;
-      background: var(--gold);
-    }
-
-    h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3.2rem, 5vw, 5.5rem);
-      font-weight: 300;
-      line-height: 1.05;
-      letter-spacing: -0.01em;
       margin-bottom: 1.8rem;
-    }
-    h1 em {
-      font-style: italic;
-      color: var(--gold-light);
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
     }
 
-    .hero-desc {
-      font-size: 1rem;
-      line-height: 1.75;
+    .hero-title {
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      font-weight: 300;
       color: var(--muted);
       max-width: 42ch;
+      line-height: 1.8;
       margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s forwards;
     }
 
-    .btn-group {
+    .hero-actions {
       display: flex;
+      gap: 1.2rem;
       align-items: center;
-      gap: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.8s forwards;
     }
 
     .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      background: var(--gold);
-      color: var(--bg);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      padding: 0.9rem 2rem;
+      color: var(--paper);
+      background: var(--ink);
+      padding: 0.9rem 2.2rem;
       text-decoration: none;
-      transition: background 0.2s, transform 0.2s;
+      transition: background 0.25s;
+      border: none;
+      cursor: pointer;
     }
-    .btn-primary:hover {
-      background: var(--gold-light);
-      transform: translateY(-1px);
-    }
-    .btn-primary svg { width: 14px; height: 14px; }
+
+    .btn-primary:hover { background: var(--gold); }
 
     .btn-ghost {
-      font-size: 0.82rem;
-      letter-spacing: 0.08em;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--ink);
+      border: 1px solid var(--rule);
+      padding: 0.9rem 2.2rem;
       text-decoration: none;
-      border-bottom: 1px solid transparent;
-      padding-bottom: 2px;
-      transition: color 0.2s, border-color 0.2s;
+      transition: border-color 0.25s, color 0.25s;
     }
-    .btn-ghost:hover { color: var(--text); border-color: var(--text); }
 
-    /* Hero visual */
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
     .hero-right {
-      position: relative;
       display: flex;
-      justify-content: center;
       align-items: center;
-      padding-top: 5rem;
+      justify-content: center;
+      padding: 6rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-graphic {
+      position: relative;
+      width: 380px;
+      height: 380px;
       opacity: 0;
       animation: fadeIn 1.2s 0.6s forwards;
     }
 
-    .chart-card {
-      position: relative;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 2rem;
-      width: 100%;
-      max-width: 420px;
-    }
-    .chart-card::before {
-      content: '';
+    .chart-ring {
       position: absolute;
-      top: -1px; left: 2rem;
-      width: 3rem; height: 2px;
-      background: var(--gold);
+      inset: 0;
+      border-radius: 50%;
+      border: 1px solid var(--rule);
+      animation: spin 40s linear infinite;
     }
 
-    .chart-header {
+    .chart-ring:nth-child(2) {
+      inset: 30px;
+      border-color: var(--cream);
+      animation-duration: 28s;
+      animation-direction: reverse;
+    }
+
+    .chart-ring:nth-child(3) {
+      inset: 60px;
+      border-color: rgba(184,146,74,0.3);
+      animation-duration: 20s;
+    }
+
+    .chart-center {
+      position: absolute;
+      inset: 90px;
+      border-radius: 50%;
+      background: var(--cream);
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 1.5rem;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--rule);
     }
-    .chart-title {
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .chart-value {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.2rem;
+
+    .chart-number {
+      font-size: 2.8rem;
       font-weight: 300;
-      margin-top: 0.25rem;
-    }
-    .chart-badge {
-      font-size: 0.72rem;
-      color: #5dbb8e;
-      background: rgba(93,187,142,0.12);
-      padding: 0.2rem 0.6rem;
-      letter-spacing: 0.05em;
+      color: var(--gold);
+      line-height: 1;
     }
 
-    /* SVG chart */
-    .chart-svg {
-      width: 100%;
-      height: 120px;
-      margin-bottom: 1.5rem;
-    }
-    .chart-path {
-      fill: none;
-      stroke: var(--gold);
-      stroke-width: 1.5;
-      stroke-dasharray: 600;
-      stroke-dashoffset: 600;
-      animation: drawLine 1.8s 1s ease-out forwards;
-    }
-    .chart-area {
-      fill: url(#areaGrad);
-      opacity: 0;
-      animation: fadeIn 0.5s 2.5s forwards;
-    }
-
-    .chart-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 1rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-    }
-    .stat-item { }
-    .stat-label {
-      font-size: 0.68rem;
-      letter-spacing: 0.1em;
+    .chart-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 0.3rem;
-    }
-    .stat-val {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      font-weight: 400;
+      margin-top: 0.3rem;
     }
 
-    /* floating accent cards */
-    .accent-card {
+    /* tick marks on ring */
+    .tick {
       position: absolute;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 1rem 1.2rem;
-      opacity: 0;
+      width: 2px;
+      height: 12px;
+      background: var(--gold);
+      top: 0; left: 50%;
+      transform-origin: bottom center;
     }
-    .accent-card.ac1 {
-      top: 30%;
-      right: -2rem;
-      animation: fadeUp 0.8s 1.4s forwards;
-    }
-    .accent-card.ac2 {
-      bottom: 15%;
-      left: -2rem;
-      animation: fadeUp 0.8s 1.6s forwards;
-    }
-    .accent-card .ac-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.2rem;
-    }
-    .accent-card .ac-val {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-    }
-    .accent-card .ac-change { font-size: 0.72rem; color: #5dbb8e; }
 
-    /* METRICS STRIP */
-    .metrics {
-      position: relative;
-      z-index: 1;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+    .hero-stats {
+      position: absolute;
+      bottom: 5rem;
+      left: 4rem;
+      display: flex;
+      gap: 3rem;
       opacity: 0;
       animation: fadeUp 0.8s 1s forwards;
     }
-    .metric-item {
-      padding: 2.5rem 4rem;
-      border-right: 1px solid var(--border);
-    }
-    .metric-item:last-child { border-right: none; }
-    .metric-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.8rem;
+
+    .stat-item { }
+    .stat-num {
+      font-size: 2rem;
       font-weight: 300;
+      color: var(--ink);
       line-height: 1;
-      color: var(--text);
-      margin-bottom: 0.4rem;
     }
-    .metric-num span { color: var(--gold); }
-    .metric-label {
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
+    .stat-num span { color: var(--gold); }
+    .stat-desc {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--muted);
+      margin-top: 0.3rem;
     }
 
-    /* SERVICES */
-    .services {
-      position: relative;
-      z-index: 1;
-      padding: 8rem 4rem;
+    /* ── SECTION BASE ── */
+    section {
+      padding: 6rem 4rem;
     }
 
-    .section-header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      margin-bottom: 4rem;
-    }
-    .section-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.72rem;
-      letter-spacing: 0.15em;
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--gold);
       margin-bottom: 1rem;
     }
-    .section-tag::before {
-      content: '';
-      display: block;
-      width: 1.5rem; height: 1px;
-      background: var(--gold);
-    }
 
-    h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 3vw, 3rem);
+    .section-title {
+      font-size: clamp(2rem, 3.5vw, 3rem);
       font-weight: 300;
       line-height: 1.15;
+      margin-bottom: 1.5rem;
     }
 
-    .service-grid {
+    .section-title em { font-style: italic; color: var(--gold); }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--cream);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .about-inner {
+      max-width: 900px;
+      margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
+      grid-template-columns: 1fr 2fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .about-aside { position: sticky; top: 7rem; }
+
+    .about-rule {
+      width: 40px;
+      height: 2px;
+      background: var(--gold);
+      margin-bottom: 2rem;
+    }
+
+    .about-body {
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: #2a2820;
+      line-height: 1.9;
+    }
+
+    .pull-quote {
+      font-size: 1.4rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--gold);
+      border-left: 2px solid var(--gold);
+      padding-left: 1.5rem;
+      margin: 2.5rem 0;
+      line-height: 1.5;
+    }
+
+    /* ── STRENGTHS ── */
+    #strengths {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6rem 4rem;
+    }
+
+    .strengths-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .strengths-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .strength-item {
+      padding: 2.5rem;
+      border-bottom: 1px solid var(--rule);
+      border-right: 1px solid var(--rule);
+      position: relative;
+      transition: background 0.3s;
+    }
+
+    .strength-item:nth-child(even) { border-right: none; }
+    .strength-item:nth-last-child(-n+2) { border-bottom: none; }
+
+    .strength-item:hover { background: var(--cream); }
+
+    .strength-num {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .strength-name {
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 0.8rem;
+      line-height: 1.3;
+    }
+
+    .strength-desc {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .strength-icon {
+      position: absolute;
+      top: 2.5rem;
+      right: 2.5rem;
+      width: 36px;
+      height: 36px;
+      opacity: 0.15;
+    }
+
+    /* ── SERVICES ── */
+    #services {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 6rem 4rem;
+    }
+
+    #services .section-label { color: var(--gold-light); }
+    #services .section-title { color: var(--paper); }
+
+    .services-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .services-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+      margin-bottom: 4rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .services-intro {
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(245,242,236,0.65);
+      line-height: 1.8;
+    }
+
+    .services-list {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
     }
 
     .service-card {
-      background: var(--bg);
-      padding: 2.5rem;
-      transition: background 0.3s;
+      padding: 2.5rem 2rem;
+      border-right: 1px solid rgba(255,255,255,0.08);
       position: relative;
-      overflow: hidden;
+      transition: background 0.3s;
     }
-    .service-card:hover { background: var(--surface); }
-    .service-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 0; height: 1px;
-      background: var(--gold);
-      transition: width 0.4s;
-    }
-    .service-card:hover::after { width: 100%; }
+
+    .service-card:last-child { border-right: none; }
+    .service-card:hover { background: rgba(255,255,255,0.04); }
 
     .service-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3rem;
-      font-weight: 300;
-      color: var(--border);
-      line-height: 1;
-      margin-bottom: 1.5rem;
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      margin-bottom: 1.8rem;
     }
+
     .service-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--paper);
+      line-height: 1.4;
+      margin-bottom: 1rem;
+    }
+
+    .service-desc {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: rgba(245,242,236,0.5);
+      line-height: 1.7;
+    }
+
+    .service-bar {
+      position: absolute;
+      bottom: 0; left: 0;
+      height: 2px;
+      width: 0;
+      background: var(--gold);
+      transition: width 0.4s ease;
+    }
+
+    .service-card:hover .service-bar { width: 100%; }
+
+    /* ── INDUSTRIES ── */
+    #industries {
+      padding: 6rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .industries-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .industry-card {
+      border: 1px solid var(--rule);
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+
+    .industry-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(184,146,74,0.05) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .industry-card:hover { border-color: var(--gold); }
+    .industry-card:hover::before { opacity: 1; }
+
+    .industry-icon {
+      font-size: 2rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .industry-name {
+      font-size: 1.3rem;
       font-weight: 400;
       margin-bottom: 0.8rem;
     }
-    .service-desc {
-      font-size: 0.85rem;
-      line-height: 1.7;
+
+    .industry-desc {
+      font-size: 0.92rem;
+      font-weight: 300;
       color: var(--muted);
+      line-height: 1.7;
     }
 
-    /* CTA SECTION */
-    .cta-section {
-      position: relative;
-      z-index: 1;
-      margin: 0 4rem 8rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 5rem;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 4rem;
+    /* ── CTA ── */
+    #contact {
+      background: var(--cream);
+      border-top: 1px solid var(--rule);
+      padding: 7rem 4rem;
+      text-align: center;
     }
-    .cta-section::before {
-      content: '';
-      position: absolute;
-      top: -1px; left: 4rem;
-      width: 6rem; height: 2px;
-      background: var(--gold);
-    }
+
+    .cta-inner { max-width: 640px; margin: 0 auto; }
 
     .cta-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 3vw, 2.8rem);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
       font-weight: 300;
-      line-height: 1.2;
-      margin-bottom: 1rem;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
     }
+
+    .cta-title em { font-style: italic; color: var(--gold); }
+
     .cta-sub {
+      font-size: 1rem;
+      font-weight: 300;
       color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.7;
-      max-width: 50ch;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
     }
 
-    /* FOOTER */
-    footer {
-      position: relative;
-      z-index: 1;
-      padding: 2rem 4rem;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .footer-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
-      color: var(--muted);
-      text-decoration: none;
-    }
-    .footer-logo span { color: var(--gold); }
-    .footer-copy {
-      font-size: 0.75rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-    }
-    .footer-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-    .footer-links a {
-      font-size: 0.75rem;
+    .cta-email {
+      font-family: var(--mono);
+      font-size: 0.85rem;
       letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
+      color: var(--gold);
       text-decoration: none;
-      transition: color 0.2s;
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 2px;
+      transition: opacity 0.2s;
     }
-    .footer-links a:hover { color: var(--text); }
+    .cta-email:hover { opacity: 0.7; }
 
-    /* ANIMATIONS */
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: rgba(245,242,236,0.4);
+      padding: 2.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,242,236,0.5);
+      text-decoration: none;
+    }
+
+    .footer-logo span { color: var(--gold); }
+
+    footer p {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── ANIMATIONS ── */
     @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-    @keyframes drawLine {
-      to { stroke-dashoffset: 0; }
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* RESPONSIVE */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    /* scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      nav { padding: 1.4rem 2rem; }
-      .nav-links { display: none; }
-      .hero {
-        grid-template-columns: 1fr;
-        padding: 0 2rem;
-        min-height: auto;
-        padding-top: 6rem;
-        padding-bottom: 4rem;
-      }
+      header { padding: 1.2rem 2rem; }
+      nav { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 7rem 2rem 3rem; }
       .hero-right { display: none; }
-      .metrics {
-        grid-template-columns: 1fr 1fr;
-      }
-      .metric-item { padding: 2rem; }
-      .metric-item:nth-child(2) { border-right: none; }
-      .services { padding: 5rem 2rem; }
-      .service-grid { grid-template-columns: 1fr; }
-      .cta-section {
-        margin: 0 2rem 5rem;
-        grid-template-columns: 1fr;
-        padding: 3rem;
-        gap: 2rem;
-      }
-      footer { padding: 2rem; flex-direction: column; gap: 1.5rem; text-align: center; }
+      .hero-stats { position: static; padding: 0 2rem 3rem; }
+      section { padding: 4rem 2rem; }
+      .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .about-aside { position: static; }
+      .strengths-grid { grid-template-columns: 1fr; }
+      .strength-item { border-right: none; }
+      .strength-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--rule); }
+      .strength-item:last-child { border-bottom: none; }
+      .services-list { grid-template-columns: 1fr 1fr; }
+      .service-card { border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .industries-grid { grid-template-columns: 1fr; }
+      .services-header { grid-template-columns: 1fr; gap: 1.5rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav id="nav">
-    <a href="#" class="logo">Finazio<span>.</span></a>
-    <ul class="nav-links">
-      <li><a href="#">Platform</a></li>
-      <li><a href="#">Solutions</a></li>
-      <li><a href="#">Insights</a></li>
-      <li><a href="#">Company</a></li>
-    </ul>
-    <a href="#" class="nav-cta">Request Access</a>
-  </nav>
+  <!-- HEADER -->
+  <header>
+    <a href="#" class="logo">FINAZ<span>I</span>O</a>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#strengths">Expertise</a>
+      <a href="#services">Services</a>
+      <a href="#contact" class="nav-cta">Get in Touch</a>
+    </nav>
+  </header>
 
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" id="home">
     <div class="hero-left">
-      <div class="tag">Financial Intelligence Platform</div>
-      <h1>Where capital<br>meets <em>clarity</em></h1>
-      <p class="hero-desc">
-        Finazio delivers institutional-grade financial analytics, portfolio intelligence, and real-time market insights — engineered for precision at every scale.
-      </p>
-      <div class="btn-group">
-        <a href="#" class="btn-primary">
-          Get Started
-          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M1 7h12M7 1l6 6-6 6"/>
-          </svg>
-        </a>
-        <a href="#" class="btn-ghost">View Platform</a>
+      <p class="hero-eyebrow">Financial Strategy &amp; Consulting</p>
+      <h1 class="hero-title">Clarity that<br>drives <em>financial</em><br>performance.</h1>
+      <p class="hero-subtitle">Over 25 years helping businesses across manufacturing, software, and hospitality align financial strategy with operations — and turn insight into growth.</p>
+      <div class="hero-actions">
+        <a href="#services" class="btn-primary">View Services</a>
+        <a href="#about" class="btn-ghost">Learn More</a>
       </div>
     </div>
-
     <div class="hero-right">
-      <!-- Accent card top-right -->
-      <div class="accent-card ac1">
-        <div class="ac-label">AUM Growth</div>
-        <div class="ac-val">$4.2B</div>
-        <div class="ac-change">↑ 18.4% YTD</div>
-      </div>
-
-      <!-- Main chart card -->
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">Portfolio Performance</div>
-            <div class="chart-value">$1,284,520</div>
-          </div>
-          <div class="chart-badge">+12.6%</div>
-        </div>
-
-        <svg class="chart-svg" viewBox="0 0 380 120" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#c8a96e" stop-opacity="0.15"/>
-              <stop offset="100%" stop-color="#c8a96e" stop-opacity="0"/>
-            </linearGradient>
-          </defs>
-          <path class="chart-area" d="M0 100 L30 85 L60 90 L90 70 L120 75 L150 55 L180 60 L210 40 L240 45 L270 28 L300 35 L330 18 L360 22 L380 15 L380 120 L0 120 Z"/>
-          <path class="chart-path" d="M0 100 L30 85 L60 90 L90 70 L120 75 L150 55 L180 60 L210 40 L240 45 L270 28 L300 35 L330 18 L360 22 L380 15"/>
-        </svg>
-
-        <div class="chart-stats">
-          <div class="stat-item">
-            <div class="stat-label">Return</div>
-            <div class="stat-val">+12.6%</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-label">Sharpe</div>
-            <div class="stat-val">2.41</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-label">Alpha</div>
-            <div class="stat-val">4.8%</div>
-          </div>
+      <div class="hero-graphic">
+        <div class="chart-ring"></div>
+        <div class="chart-ring"></div>
+        <div class="chart-ring"></div>
+        <!-- tick marks -->
+        <div id="ticks"></div>
+        <div class="chart-center">
+          <div class="chart-number">25<span style="font-size:1.5rem; color: var(--gold);">+</span></div>
+          <div class="chart-label">Years Experience</div>
         </div>
       </div>
-
-      <!-- Accent card bottom-left -->
-      <div class="accent-card ac2">
-        <div class="ac-label">Risk Score</div>
-        <div class="ac-val">Low</div>
-        <div class="ac-change">● Optimized</div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">3<span>×</span></div>
+        <div class="stat-desc">Industries Served</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">4</div>
+        <div class="stat-desc">Core Services</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">∞</div>
+        <div class="stat-desc">Strategic Value</div>
       </div>
     </div>
   </section>
 
-  <!-- METRICS STRIP -->
-  <div class="metrics">
-    <div class="metric-item">
-      <div class="metric-num">$<span>48</span>B+</div>
-      <div class="metric-label">Assets Analyzed</div>
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-inner">
+      <div class="about-aside reveal">
+        <p class="section-label">About</p>
+        <div class="about-rule"></div>
+        <h2 class="section-title">Finance with <em>purpose.</em></h2>
+      </div>
+      <div class="reveal">
+        <p class="about-body">
+          With over 25 years in accounting and finance, I help businesses make informed financial decisions that drive performance, efficiency, and profit. My experience spans manufacturing, software, and hospitality, giving me a unique perspective on how to align financial strategy with operations in diverse industries.
+        </p>
+        <blockquote class="pull-quote">
+          "Aligning financial strategy with operations is not a function — it is a philosophy."
+        </blockquote>
+        <p class="about-body">
+          I offer personalized consulting for small to mid-sized companies and growing enterprises. Whether you need a rigorous financial health assessment, strategic planning support, or seasoned leadership in an interim role, I bring both analytical rigor and practical experience to every engagement.
+        </p>
+      </div>
     </div>
-    <div class="metric-item">
-      <div class="metric-num"><span>3,200</span>+</div>
-      <div class="metric-label">Institutional Clients</div>
-    </div>
-    <div class="metric-item">
-      <div class="metric-num"><span>99.9</span>%</div>
-      <div class="metric-label">Platform Uptime</div>
-    </div>
-    <div class="metric-item">
-      <div class="metric-num"><span>140</span>+</div>
-      <div class="metric-label">Markets Covered</div>
+  </section>
+
+  <!-- STRENGTHS -->
+  <div id="strengths" style="padding: 0;">
+    <div style="max-width:1100px; margin:0 auto; padding: 6rem 4rem;">
+      <div class="strengths-header reveal">
+        <div>
+          <p class="section-label">Key Strengths</p>
+          <h2 class="section-title">What I bring<br>to <em>every</em> engagement.</h2>
+        </div>
+        <p style="font-family: var(--mono); font-size:0.65rem; letter-spacing:0.12em; color:var(--muted); max-width:28ch; line-height:1.8; text-align:right;">Five core competencies refined across two and a half decades of financial leadership.</p>
+      </div>
+
+      <div class="strengths-grid">
+        <div class="strength-item reveal">
+          <p class="strength-num">01 —</p>
+          <h3 class="strength-name">Financial Strategy &amp; Analysis</h3>
+          <p class="strength-desc">Experienced in budgeting, forecasting, and guiding executive teams through financial decision-making and performance optimization.</p>
+        </div>
+        <div class="strength-item reveal">
+          <p class="strength-num">02 —</p>
+          <h3 class="strength-name">Operational Efficiency</h3>
+          <p class="strength-desc">Skilled at identifying cost-saving opportunities, streamlining accounting processes, and improving financial controls across organizations.</p>
+        </div>
+        <div class="strength-item reveal">
+          <p class="strength-num">03 —</p>
+          <h3 class="strength-name">Cross-Industry Expertise</h3>
+          <p class="strength-desc">Deep understanding of the financial challenges and opportunities unique to manufacturing, SaaS businesses, and hospitality sectors.</p>
+        </div>
+        <div class="strength-item reveal">
+          <p class="strength-num">04 —</p>
+          <h3 class="strength-name">Leadership &amp; Mentorship</h3>
+          <p class="strength-desc">Proven leader who builds strong finance teams, fosters collaboration, and bridges finance with broader organizational goals.</p>
+        </div>
+        <div class="strength-item reveal" style="grid-column: 1 / -1; border-right: none;">
+          <p class="strength-num">05 —</p>
+          <h3 class="strength-name">Systems &amp; Technology Integration</h3>
+          <p class="strength-desc">Hands-on experience with ERP systems, accounting software, and process automation initiatives that enhance accuracy and scalability.</p>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- SERVICES -->
-  <section class="services">
-    <div class="section-header">
-      <div>
-        <div class="section-tag">What We Offer</div>
-        <h2>Built for the<br>modern investor</h2>
+  <section id="services">
+    <div class="services-inner">
+      <div class="services-header reveal">
+        <div>
+          <p class="section-label">How I Can Help</p>
+          <h2 class="section-title">Services designed<br>for <em>growth.</em></h2>
+        </div>
+        <p class="services-intro">Personalized consulting for small to mid-sized companies and growing enterprises — delivered with the depth of a seasoned CFO.</p>
       </div>
-    </div>
 
-    <div class="service-grid">
-      <div class="service-card">
-        <div class="service-num">01</div>
-        <div class="service-title">Portfolio Intelligence</div>
-        <p class="service-desc">Real-time risk analysis, performance attribution, and automated rebalancing recommendations powered by advanced quantitative models.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-num">02</div>
-        <div class="service-title">Market Analytics</div>
-        <p class="service-desc">Deep market data across equities, fixed income, derivatives, and alternative assets with institutional-grade signal processing.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-num">03</div>
-        <div class="service-title">Wealth Planning</div>
-        <p class="service-desc">Comprehensive financial planning tools with scenario modeling, tax optimization, and goal-based investment strategies for every horizon.</p>
+      <div class="services-list">
+        <div class="service-card reveal">
+          <p class="service-num">01</p>
+          <h3 class="service-title">Financial Health Assessments &amp; Process Audits</h3>
+          <p class="service-desc">A thorough diagnostic of your financial operations — uncovering risk, inefficiency, and opportunity.</p>
+          <div class="service-bar"></div>
+        </div>
+        <div class="service-card reveal">
+          <p class="service-num">02</p>
+          <h3 class="service-title">Strategic Planning &amp; Profitability Analysis</h3>
+          <p class="service-desc">Forward-looking financial modeling that connects today's decisions to tomorrow's outcomes.</p>
+          <div class="service-bar"></div>
+        </div>
+        <div class="service-card reveal">
+          <p class="service-num">03</p>
+          <h3 class="service-title">Interim CFO or Controller Services</h3>
+          <p class="service-desc">Senior-level financial leadership on demand — strategic, experienced, and immediately effective.</p>
+          <div class="service-bar"></div>
+        </div>
+        <div class="service-card reveal">
+          <p class="service-num">04</p>
+          <h3 class="service-title">ERP Implementation &amp; Transition Management</h3>
+          <p class="service-desc">Hands-on support through system selection, configuration, team training, and go-live transitions.</p>
+          <div class="service-bar"></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA SECTION -->
-  <section class="cta-section">
-    <div>
-      <h2 class="cta-title">Ready to elevate your financial strategy?</h2>
-      <p class="cta-sub">Join thousands of institutions and advisors who trust Finazio to deliver clarity in complexity. Request early access today.</p>
+  <!-- INDUSTRIES -->
+  <section id="industries">
+    <div class="reveal">
+      <p class="section-label">Industries</p>
+      <h2 class="section-title">Deep expertise in<br><em>three</em> distinct sectors.</h2>
     </div>
-    <a href="#" class="btn-primary">
-      Request Access
-      <svg viewBox="0 0 14 14" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M1 7h12M7 1l6 6-6 6"/>
-      </svg>
-    </a>
+    <div class="industries-grid">
+      <div class="industry-card reveal">
+        <div class="industry-icon">⚙️</div>
+        <h3 class="industry-name">Manufacturing</h3>
+        <p class="industry-desc">Cost structure analysis, inventory controls, production variance reporting, and operational finance for complex physical goods businesses.</p>
+      </div>
+      <div class="industry-card reveal">
+        <div class="industry-icon">💻</div>
+        <h3 class="industry-name">Software &amp; SaaS</h3>
+        <p class="industry-desc">Revenue recognition, ARR/MRR modeling, subscription economics, and the financial architecture needed for scalable software businesses.</p>
+      </div>
+      <div class="industry-card reveal">
+        <div class="industry-icon">🏨</div>
+        <h3 class="industry-name">Hospitality</h3>
+        <p class="industry-desc">Property-level P&amp;L management, labor cost optimization, seasonality planning, and multi-unit financial consolidation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contact">
+    <div class="cta-inner reveal">
+      <p class="section-label">Get in Touch</p>
+      <h2 class="cta-title">Ready to bring <em>clarity</em><br>to your finances?</h2>
+      <p class="cta-sub">Let's discuss where your business stands and where it could go. Reach out to schedule a confidential consultation.</p>
+      <a href="mailto:info@finazio.biz" class="cta-email">info@finazio.biz</a>
+      <div style="margin-top: 2.5rem;">
+        <a href="mailto:info@finazio.biz" class="btn-primary">Schedule a Consultation</a>
+      </div>
+    </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <a href="#" class="footer-logo">Finazio<span>.</span>biz</a>
-    <p class="footer-copy">© 2025 Finazio. All rights reserved.</p>
-    <ul class="footer-links">
-      <li><a href="#">Privacy</a></li>
-      <li><a href="#">Terms</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
+    <a href="#" class="footer-logo">FINAZ<span>I</span>O</a>
+    <p>finazio.biz — Financial Strategy &amp; Consulting</p>
+    <p>© 2025 Finazio. All rights reserved.</p>
   </footer>
 
   <script>
-    // Sticky nav on scroll
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 40);
-    });
+    // Tick marks on the decorative ring
+    const container = document.getElementById('ticks');
+    if (container) {
+      for (let i = 0; i < 24; i++) {
+        const t = document.createElement('div');
+        t.className = 'tick';
+        t.style.transform = `translateX(-50%) rotate(${i * 15}deg)`;
+        t.style.height = i % 6 === 0 ? '16px' : '8px';
+        t.style.opacity = i % 6 === 0 ? '0.5' : '0.2';
+        container.appendChild(t);
+      }
+    }
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    reveals.forEach(el => io.observe(el));
   </script>
 </body>
 </html>
