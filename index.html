@@ -607,6 +607,73 @@
     }
     .cta-email:hover { opacity: 0.7; }
 
+    /* ── LEGAL / PRIVACY POLICY ── */
+    #shelfie-privacy {
+      background: var(--paper);
+      border-top: 1px solid var(--rule);
+      padding: 6rem 4rem;
+    }
+
+    .legal-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .legal-updated {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .legal-inner h3 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-top: 2.8rem;
+      margin-bottom: 1rem;
+      color: var(--ink);
+    }
+
+    .legal-inner h3:first-of-type { margin-top: 0; }
+
+    .legal-inner p {
+      font-size: 1.02rem;
+      font-weight: 300;
+      color: #2a2820;
+      line-height: 1.85;
+      margin-bottom: 1.2rem;
+    }
+
+    .legal-inner ul {
+      margin: 0 0 1.5rem 1.4rem;
+      color: #2a2820;
+      font-weight: 300;
+      line-height: 1.85;
+    }
+
+    .legal-inner ul li { margin-bottom: 0.5rem; }
+
+    .legal-lede {
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--gold);
+      border-left: 2px solid var(--gold);
+      padding-left: 1.5rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    .legal-inner a {
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid var(--gold);
+    }
+    .legal-inner a:hover { opacity: 0.7; }
+
     /* ── FOOTER ── */
     footer {
       background: var(--ink);
@@ -616,6 +683,8 @@
       justify-content: space-between;
       align-items: center;
       border-top: 1px solid rgba(255,255,255,0.06);
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
     .footer-logo {
@@ -635,6 +704,23 @@
       font-size: 0.62rem;
       letter-spacing: 0.1em;
     }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(245,242,236,0.4);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
 
     /* ── ANIMATIONS ── */
     @keyframes fadeUp {
@@ -682,6 +768,7 @@
       .service-card { border-bottom: 1px solid rgba(255,255,255,0.08); }
       .industries-grid { grid-template-columns: 1fr; }
       .services-header { grid-template-columns: 1fr; gap: 1.5rem; }
+      #shelfie-privacy { padding: 4rem 2rem; }
       footer { flex-direction: column; gap: 1rem; text-align: center; }
     }
   </style>
@@ -880,10 +967,61 @@
     </div>
   </section>
 
+  <!-- SHELFIE PRIVACY POLICY -->
+  <section id="shelfie-privacy">
+    <div class="legal-inner reveal">
+      <p class="section-label">Shelfie App</p>
+      <h2 class="section-title">Privacy <em>Policy</em></h2>
+      <p class="legal-updated">Last Updated: June 24, 2026</p>
+
+      <p class="legal-lede">Shelfie does not collect, store, transmit, or share any personal data from its users.</p>
+
+      <h3>Overview</h3>
+      <p>Shelfie ("the App," "we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we handle information in connection with your use of the Shelfie iOS application.</p>
+
+      <h3>Information We Collect</h3>
+      <p>Shelfie does not collect any personal data. Specifically, the App does not collect, use, or share:</p>
+      <ul>
+        <li>Contact information (name, email address, phone number)</li>
+        <li>Location data</li>
+        <li>Health or fitness data</li>
+        <li>Financial information</li>
+        <li>Photos, videos, or other media (beyond what you choose to store locally on your own device, if applicable)</li>
+        <li>Browsing history or search history</li>
+        <li>Identifiers (device ID, advertising ID, or similar identifiers)</li>
+        <li>Usage data or analytics tied to you as an individual</li>
+        <li>Diagnostics data</li>
+        <li>Contacts, calendars, or other personal content on your device</li>
+      </ul>
+      <p>Any data that the App creates or uses (such as your saved lists, entries, or preferences) is stored locally on your device only. This data is never transmitted to us or to any third party, and we have no access to it.</p>
+
+      <h3>Data Storage</h3>
+      <p>All information you enter into Shelfie is stored exclusively on your device using Apple's standard local storage frameworks. If you delete the App, this data is permanently removed along with it. We do not operate any servers that receive, process, or store your data.</p>
+
+      <h3>Third-Party Services</h3>
+      <p>Shelfie does not integrate with any third-party analytics, advertising, or tracking services. We do not use third-party SDKs that collect data on our behalf.</p>
+
+      <h3>Children's Privacy</h3>
+      <p>Because Shelfie does not collect any personal data from any user, it does not knowingly or unknowingly collect personal data from children under the age of 13 (or the relevant age of consent in your jurisdiction).</p>
+
+      <h3>Your Rights</h3>
+      <p>Since Shelfie does not collect or store any personal data on our servers, there is no personal data for us to access, correct, delete, or transfer on your behalf. Any data associated with your use of the App resides solely on your own device and is fully within your control.</p>
+
+      <h3>Changes to This Privacy Policy</h3>
+      <p>We may update this Privacy Policy from time to time to reflect changes in the App or for legal or regulatory reasons. If we make material changes, we will update the "Last Updated" date above. We encourage you to review this policy periodically.</p>
+
+      <h3>Contact Us</h3>
+      <p>If you have any questions or concerns about this Privacy Policy or about Shelfie, please contact us at: <a href="mailto:rich@finazio.biz">rich@finazio.biz</a></p>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer>
     <a href="#" class="footer-logo">FINAZ<span>I</span>O</a>
     <p>finazio.biz — Financial Strategy &amp; Consulting</p>
+    <div class="footer-links">
+      <a href="#shelfie-privacy">Shelfie Privacy Policy</a>
+    </div>
     <p>© 2025 Finazio. All rights reserved.</p>
   </footer>
 
